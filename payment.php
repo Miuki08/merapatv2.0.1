@@ -73,10 +73,11 @@ class Payment {
 
     public function getPaymentId($payment_id) {
         $query = "SELECT * FROM payments WHERE payment_id = ?";
-        $persiap = $this->db->conn->prepare($query);
-        $persiap->bind_param("i", $payment_id);
-        $persiap->execute();
-        return $persiap->get_result(); // Mengembalikan mysqli result object
+        $stmt = $this->db->conn->prepare($query);
+        $stmt->bind_param("i", $payment_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc(); // Mengembalikan array atau null
     }
 
     public function add() {
@@ -87,15 +88,21 @@ class Payment {
         return $persiap->execute();
     }
 
-    public function delete() {
-        $query = "DELETE FROM payments WHERE payment_id = ?";
-        $persiap = $this->db->conn->prepare($query);
-        $persiap->bind_param("i", $this->payment_id);
-        $result = $persiap->execute();
-        if (!$result) {
-            error_log("Delete failed: " . $this->db->conn->error);
+    public function delete($payment_id) {
+        // Dapatkan data payment terlebih dahulu untuk menghapus file
+        $payment_data = $this->getPaymentId($payment_id);      
+        if ($payment_data) {
+            // Hapus file terkait jika ada
+            if (!empty($payment_data['user_file']) && file_exists($payment_data['user_file'])) {
+                unlink($payment_data['user_file']);
+            }           
+            // Hapus dari database
+            $query = "DELETE FROM payments WHERE payment_id = ?";
+            $stmt = $this->db->conn->prepare($query);
+            $stmt->bind_param("i", $payment_id);
+            return $stmt->execute();
         }
-        return $result;
+        return false;
     }
 
     public function update() {

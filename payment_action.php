@@ -85,23 +85,16 @@ switch ($action) {
         }
         break;
         
-    case 'delete':
-        if (isset($_GET['payment_id'])) {
-            $payment_id = $_GET['payment_id'];
-            $payment_data = $payment->getPaymentId($payment_id);
-            
-            // Hapus file terkait jika ada
-            if (!empty($payment_data['user_file']) && file_exists($payment_data['user_file'])) {
-                unlink($payment_data['user_file']);
+        case 'delete':
+            if (isset($_GET['payment_id'])) {
+                $payment_id = $_GET['payment_id'];
+                if ($payment->delete($payment_id)) {
+                    header("Location: payment_view.php?payment=deleted");
+                } else {
+                    header("Location: payment_view.php?error=delete_failed");
+                }
             }
-            
-            if ($payment->delete($payment_id)) {
-                header("Location: payment_view.php?payment=deleted");
-            } else {
-                header("Location: payment_view.php?error=delete_failed");
-            }
-        }
-        break;
+            break;
         
     default:
         header("Location: UI_schadule.php");
