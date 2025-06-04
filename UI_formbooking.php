@@ -457,7 +457,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rating'], $_POST['rev
     
     <section class="main-content">
         <div class="description">
-            <img src="rm3.jpg" alt="<?= htmlspecialchars($room['room_name']); ?>">
+        <img src="img/<?= htmlspecialchars($room['img_room']); ?>" alt="<?= htmlspecialchars($room['room_name']); ?>">
             <h2><?= htmlspecialchars($room['room_name']); ?></h2>
             <p>Lokasi: <?= htmlspecialchars($room['location']); ?></p>
             <p>Kapasitas: <?= htmlspecialchars($room['capacity']); ?> Orang</p>

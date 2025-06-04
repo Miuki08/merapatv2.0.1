@@ -457,7 +457,7 @@ $result = $booking->getBookingsByUserId($user_id);
             ?>
             <div class="<?php echo $card_class; ?>">
                 <div class="status-indicator" style="background-color: <?php echo $status_color; ?>;"></div>
-                <img src="rm2.jpg" alt="Ruang Meeting">
+                <img src="img/<?php echo htmlspecialchars($row['img_room']); ?>" alt="<?php echo htmlspecialchars($row['room_name']); ?>">
                 <div class="carto-content">
                     <h2><?php echo htmlspecialchars($row['room_name']); ?></h2>
                     <p>

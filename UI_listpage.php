@@ -1,21 +1,21 @@
 <?php
-session_start();
+session_start(); // Memulai session untuk menyimpan data user
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: user_login_register.php");
+    header("Location: user_login_register.php"); // Diarahkan ke halaman login jika belum login
     exit();
 }
 
-if ($_SESSION['role'] != 'customer') {
-    if ($_SESSION['role'] == 'manager' || $_SESSION['role'] == 'officer') {
-        header("Location: dasboard.php");
+if ($_SESSION['role'] != 'customer') { // Cek apakah user adalah customer
+    if ($_SESSION['role'] == 'manager' || $_SESSION['role'] == 'officer') { 
+        header("Location: dasboard.php"); // Jika bukan customer, arahkan ke halaman dashboard atau halaman lain yang sesuai
     } else {
         header("Location: user_login_register.php");
     }
     exit();
 }
 
-$name = $_SESSION['name'];
+$name = $_SESSION['name']; // Ambil nama user dari session
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +29,7 @@ $name = $_SESSION['name'];
     <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Cinzel+Decorative:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <title>MERAPAT | LAMAN RUANGAN</title>
     <style>
+        /* General Style */
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #F1E9E9;
@@ -47,7 +48,7 @@ $name = $_SESSION['name'];
             top: 0;
             z-index: 1000;
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; 
             align-items: center;
             position: relative;
         }
@@ -359,13 +360,14 @@ $name = $_SESSION['name'];
                 <a href="UI_formbooking.php?room_id=<?= $result['room_id'] ?>" class="card-link">
                     <div class="card1">
                         <div class="status-indicator"></div>
-                        <img src="rm2.jpg" alt="<?= htmlspecialchars($result['room_name']); ?>">
+                        <img src="img/<?= htmlspecialchars($result['img_room']); ?>" alt="<?= htmlspecialchars($result['room_name']); ?>">
                         <h3><?= htmlspecialchars($result['room_name']); ?></h3>
                         <p>Kapasitas: <?= htmlspecialchars($result['capacity']); ?> Orang</p>
                         <p>Status <span><?= htmlspecialchars($result['status']); ?></span></p>
                     </div>
                 </a>
             </div>
+
             <?php } ?>
         </div>
     </section>

@@ -400,7 +400,7 @@ $download_data = [
     
     <section>
         <div class="information">
-            <img src="ro1.jpg" alt="<?= htmlspecialchars($room['room_name']); ?>">
+            <img src="img/<?= htmlspecialchars($room['img_room']); ?>" alt="<?= htmlspecialchars($room['room_name']); ?>">
             <h2>Detail Pemesanan</h2>
             
             <p><span class="info-label">Nama Pemesan:</span> <?= htmlspecialchars($name); ?></p>

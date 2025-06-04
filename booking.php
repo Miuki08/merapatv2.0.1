@@ -16,7 +16,7 @@ class booking {
     }
 
     public function bookingread(){
-        $query = "SELECT bookings.booking_id, users.user_id, users.name, meeting_rooms.room_id, meeting_rooms.room_name, bookings.start_time, bookings.end_time, bookings.status
+        $query = "SELECT bookings.booking_id, users.user_id, users.name, meeting_rooms.room_id, meeting_rooms.room_name, meeting_rooms.img_room, bookings.start_time, bookings.end_time, bookings.status
                     FROM users
                     INNER JOIN bookings ON users.user_id = bookings.user_id
                     INNER JOIN meeting_rooms ON meeting_rooms.room_id = bookings.room_id;";
@@ -29,7 +29,7 @@ class booking {
 
     // Method untuk membaca booking berdasarkan user_id
     public function getBookingsByUserId($user_id) {
-        $query = "SELECT bookings.booking_id, users.user_id, users.name, meeting_rooms.room_id, meeting_rooms.room_name, bookings.start_time, bookings.end_time, bookings.status
+        $query = "SELECT bookings.booking_id, users.user_id, users.name, meeting_rooms.room_id, meeting_rooms.room_name, meeting_rooms.img_room, bookings.start_time, bookings.end_time, bookings.status
                   FROM bookings
                   INNER JOIN users ON users.user_id = bookings.user_id
                   INNER JOIN meeting_rooms ON meeting_rooms.room_id = bookings.room_id
